@@ -9,7 +9,7 @@ from typing import Tuple
 
 from ...util.model import BenchmarkModel
 from torchbenchmark.tasks import OTHER
-
+import intel_extension_for_pytorch
 
 class Model(BenchmarkModel):
     task = OTHER.OTHER_TASKS

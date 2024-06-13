@@ -16,6 +16,7 @@ from torchbenchmark.tasks import GNN
 from torchbenchmark.util.framework.gnn.config import parse_tb_args
 from torchbenchmark.util.model import BenchmarkModel
 from tqdm import tqdm
+import intel_extension_for_pytorch
 
 models_dict = {
     "gat": GAT,

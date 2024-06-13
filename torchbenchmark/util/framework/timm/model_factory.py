@@ -4,6 +4,7 @@ from contextlib import suppress
 import timm
 import torch
 from torchbenchmark.util.model import BenchmarkModel
+import intel_extension_for_pytorch
 
 from .extended_configs import BATCH_SIZE_DIVISORS, TIMM_MODELS
 from .timm_config import TimmConfig

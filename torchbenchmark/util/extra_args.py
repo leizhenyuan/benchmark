@@ -44,9 +44,9 @@ def check_precision(
     if precision == "bf16":
         return True
     if precision == "amp_fp16":
-        if model.test == "eval" and model.device == "cuda":
+        if model.test == "eval" and (model.device == "cuda" or model.device=="xpu"):
             return True
-        if model.test == "train" and model.device == "cuda":
+        if model.test == "train" and (model.device == "cuda" or model.device=="xpu"):
             return hasattr(model, "enable_amp") or is_staged_train_test(model)
     if precision == "amp_bf16":
         if model.test == "eval" and model.device == "cpu":
@@ -186,7 +186,7 @@ def apply_decoration_args(
         ), f"fx_int8 only work for eval mode on cpu device."
         model.enable_fx_int8(dargs.quant_engine)
     elif dargs.precision == "amp_fp16":
-        assert model.device == "cuda", f"{model.device} has no fp16 autocast."
+        # assert model.device == "cuda", f"{model.device} has no fp16 autocast."
         if model.test == "eval":
             import torch
 
@@ -196,7 +196,7 @@ def apply_decoration_args(
 
             if is_staged_train_test(model):
                 model.add_context(
-                    lambda: torch.cuda.amp.autocast(dtype=torch.float16),
+                    lambda: torch.autocast(device_type="xpu", type=torch.float16),
                     stage=TEST_STAGE.FORWARD,
                 )
             else:

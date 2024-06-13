@@ -36,7 +36,7 @@ else:
 
 
 WARMUP_ROUNDS = 3
-SUPPORT_DEVICE_LIST = ["cpu", "cuda"]
+SUPPORT_DEVICE_LIST = ["cpu", "cuda", "xpu"]
 if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
     SUPPORT_DEVICE_LIST.append("mps")
 SUPPORT_PROFILE_LIST = [
@@ -264,16 +264,16 @@ def run_one_step(
         )
     if "model_flops" in metrics_needed:
         model_flops = get_model_flops(model)
-    printResultSummaryTime(
-        result_summary,
-        model,
-        metrics_needed,
-        flops_model_analyzer,
-        model_flops,
-        cpu_peak_mem,
-        mem_device_id,
-        gpu_peak_mem,
-    )
+    # printResultSummaryTime(
+    #     result_summary,
+    #     model,
+    #     metrics_needed,
+    #     flops_model_analyzer,
+    #     model_flops,
+    #     cpu_peak_mem,
+    #     mem_device_id,
+    #     gpu_peak_mem,
+    # )
 
 
 def profile_one_step(func, model, nwarmup=WARMUP_ROUNDS):
@@ -375,7 +375,7 @@ def profile_one_step(func, model, nwarmup=WARMUP_ROUNDS):
     )
     print(f"Saved TensorBoard Profiler traces to {args.profile_folder}.")
 
-    printResultSummaryTime(result_summary, model=m)
+    # printResultSummaryTime(result_summary, model=m)
 
 
 def _validate_devices(devices: str):
