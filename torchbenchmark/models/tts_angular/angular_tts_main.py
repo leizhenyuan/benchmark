@@ -8,6 +8,7 @@ import torch
 import torch as T
 from .model import SpeakerEncoder, AngleProtoLoss
 from torch.optim.optimizer import Optimizer
+import intel_extension_for_pytorch
 
 
 torch.backends.cudnn.enabled = True

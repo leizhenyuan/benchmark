@@ -27,6 +27,8 @@ from torch.utils._pytree import tree_map
 
 from typing import Tuple
 
+import intel_extension_for_pytorch
+
 # setup coco2017 input path
 CURRENT_DIR = Path(os.path.dirname(os.path.realpath(__file__)))
 DATA_DIR = os.path.join(CURRENT_DIR.parent.parent, "data", ".data", "coco2017-minimal", "coco")
@@ -49,10 +51,10 @@ class Model(BenchmarkModel):
 
     def __init__(self, test, device, batch_size=None, extra_args=[]):
         super().__init__(test=test, device=device, batch_size=batch_size, extra_args=extra_args)
-        if not device == "cuda":
+        # if not device == "cuda":
             # Only implemented on CUDA because the original model code explicitly calls the `Tensor.cuda()` API
             # https://github.com/rwightman/efficientdet-pytorch/blob/9cb43186711d28bd41f82f132818c65663b33c1f/effdet/data/loader.py#L114
-            raise NotImplementedError("The original model code forces the use of CUDA.")
+            # raise NotImplementedError("The original model code forces the use of CUDA.")
         # generate arguments
         args = get_args()
         # setup train and eval batch size

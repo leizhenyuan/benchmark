@@ -206,7 +206,7 @@ def apply_decoration_args(
                     "training, try to add context to TEST_STAGE.ALL."
                 )
                 model.add_context(
-                    lambda: torch.cuda.amp.autocast(dtype=torch.float16),
+                    lambda: torch.autocast(device_type="xpu", dtype=torch.float16),
                     stage=TEST_STAGE.ALL,
                 )
 

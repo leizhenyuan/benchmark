@@ -68,6 +68,7 @@ class TimmModel(BenchmarkModel):
             yield example_input
 
     def _gen_input(self, batch_size):
+        
         return torch.randn((batch_size,) + self.cfg.input_size, device=self.device)
 
     def _gen_target(self, batch_size):
@@ -82,6 +83,7 @@ class TimmModel(BenchmarkModel):
         if isinstance(output, tuple):
             output = output[0]
         target = self._gen_target(output.shape[0])
+        # import pdb;pdb.set_trace()
         self.cfg.loss(output, target).backward()
         self.cfg.optimizer.step()
 

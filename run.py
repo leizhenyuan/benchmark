@@ -173,6 +173,7 @@ def run_one_step(
 ):
     # Warm-up `nwarmup` rounds
     for _i in range(nwarmup):
+        # import pdb;pdb.set_trace()
         func()
 
     result_summary = []
@@ -528,7 +529,7 @@ def main() -> None:
 
     test = m.invoke
     if args.amp:
-        test = torch.autocast(m.device)(test)
+        test = torch.autocast(m.device, dtype=torch.bfloat16)(test)
     metrics_needed = (
         [_ for _ in args.metrics.split(",") if _.strip()] if args.metrics else []
     )

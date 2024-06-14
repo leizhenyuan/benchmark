@@ -25,6 +25,8 @@ from .models import create_model
 import torch
 from torch.utils._pytree import tree_map
 from .util.visualizer import Visualizer
+import intel_extension_for_pytorch
+
 
 
 def prefetch_device(example_inputs, device):
